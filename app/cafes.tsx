@@ -1,21 +1,23 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 
-export default function CafesScreen() {
-  const cafes = [
-    { id: 1, name: "Prolog Coffee" },
-    { id: 2, name: "Coffee Collective" },
-    { id: 3, name: "La Cabra" },
-  ];
+const CAFES = ["Prolog Coffee", "Coffee Collective", "La Cabra"];
 
+export default function Cafes() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Cafés</Text>
 
-      {cafes.map((cafe) => (
-        <Text key={cafe.id} style={styles.cafeItem}>
-          {cafe.name}
-        </Text>
-      ))}
+      <FlatList
+        data={CAFES}
+        keyExtractor={(item) => item}
+        contentContainerStyle={styles.list}
+        renderItem={({ item }) => (
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>{item}</Text>
+            <Text style={styles.cardMeta}>København • 0,8 km</Text>
+          </View>
+        )}
+      />
     </View>
   );
 }
@@ -23,16 +25,32 @@ export default function CafesScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    marginTop: 40,
+    padding: 24,
+    paddingTop: 48,
+    backgroundColor: "#fff",
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
+    fontSize: 40,
+    fontWeight: "800",
+    marginBottom: 16,
   },
-  cafeItem: {
-    fontSize: 18,
-    marginBottom: 10,
+  list: {
+    paddingBottom: 24,
+  },
+  card: {
+    borderWidth: 1,
+    borderColor: "#e6e6e6",
+    borderRadius: 14,
+    padding: 16,
+    marginBottom: 12,
+  },
+  cardTitle: {
+    fontSize: 20,
+    fontWeight: "700",
+    marginBottom: 6,
+  },
+  cardMeta: {
+    fontSize: 14,
+    color: "#666",
   },
 });
